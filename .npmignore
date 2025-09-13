@@ -1,0 +1,25 @@
+# Source files (TypeScript)
+src/
+test/
+
+# Config files
+.github/
+.gitignore
+tsconfig.json
+vitest.config.ts
+.eslintrc
+.prettierrc
+
+# Development files
+*.log
+*.tgz
+.DS_Store
+node_modules/
+coverage/
+.nyc_output/
+
+# Documentation source
+docs/
+
+# Keep only dist/ and essential files
+# package.json, README.md, LICENSE are included by default

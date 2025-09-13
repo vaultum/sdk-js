@@ -21,6 +21,14 @@
   ],
   "author": "Vaultum Team",
   "license": "MIT",
+  "homepage": "https://github.com/vaultum/sdk-js#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaultum/sdk-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vaultum/sdk-js/issues"
+  },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@vitest/coverage-v8": "^1.6.1",
