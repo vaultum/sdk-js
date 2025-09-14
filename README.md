@@ -1,26 +1,26 @@
 # Vaultum JavaScript SDK
 
 ![Tests](https://github.com/vaultum/sdk-js/workflows/JavaScript%20SDK%20Tests/badge.svg)
-[![npm version](https://badge.fury.io/js/@vaultum/sdk.svg)](https://badge.fury.io/js/@vaultum/sdk)
+[![npm version](https://badge.fury.io/js/@vaultum%2Fsdk-js.svg)](https://badge.fury.io/js/@vaultum%2Fsdk-js)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## 📦 Installation
 
 ```bash
 # npm
-npm install @vaultum/sdk
+npm install @vaultum/sdk-js
 
 # yarn
-yarn add @vaultum/sdk
+yarn add @vaultum/sdk-js
 
 # pnpm
-pnpm add @vaultum/sdk
+pnpm add @vaultum/sdk-js
 ```
 
 ## 🚀 Quick Start
 
 ```typescript
-import { VaultumClient } from '@vaultum/sdk';
+import { VaultumClient } from '@vaultum/sdk-js';
 
 // Initialize client
 const client = new VaultumClient({
