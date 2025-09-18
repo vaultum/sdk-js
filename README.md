@@ -1,264 +1,141 @@
-# Vaultum JavaScript SDK
+# @vaultum/sdk
 
-![Tests](https://github.com/vaultum/sdk-js/workflows/JavaScript%20SDK%20Tests/badge.svg)
-[![npm version](https://badge.fury.io/js/@vaultum%2Fsdk-js.svg)](https://badge.fury.io/js/@vaultum%2Fsdk-js)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+TypeScript SDK for Vaultum Smart Account - ERC-4337 Account Abstraction Wallet
 
-## 📦 Installation
+## Installation
 
 ```bash
-# npm
-npm install @vaultum/sdk-js
-
-# yarn
-yarn add @vaultum/sdk-js
-
-# pnpm
-pnpm add @vaultum/sdk-js
+npm install @vaultum/sdk
+# or
+yarn add @vaultum/sdk
+# or
+pnpm add @vaultum/sdk
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ```typescript
-import { VaultumClient } from '@vaultum/sdk-js';
+import { VaultumClient } from '@vaultum/sdk';
 
 // Initialize client
 const client = new VaultumClient({
-  apiUrl: 'https://api.vaultum.app',
-  chain: 'ethereum', // or 'polygon', 'arbitrum', etc.
+  apiKey: 'your-api-key',
+  network: 'sepolia'
 });
 
-// Create a smart account
-const account = await client.createAccount({
-  owner: '0xYourAddress',
-  modules: ['sessionKeys', 'spendingLimits'],
+// Deploy a smart account
+const account = await client.deployAccount({
+  owner: '0x...',
+  modules: ['social-recovery', 'session-keys', 'spending-limits']
 });
 
-// Build and send a user operation
-const userOp = await client.buildUserOperation({
+// Submit a UserOperation
+const opId = await client.submitUserOp({
   account: account.address,
-  to: '0xRecipient',
-  value: '1000000000000000000', // 1 ETH
-  data: '0x',
+  calls: [
+    {
+      to: '0x...',
+      value: '0',
+      data: '0x...'
+    }
+  ]
 });
 
-// Submit the operation
-const result = await client.submitUserOperation(userOp);
-
-// Wait for confirmation
-const receipt = await client.waitForOperation(result.id);
+// Check operation status
+const status = await client.getOpStatus(opId);
 ```
 
-## ✨ Features
+## Features
 
-- **TypeScript Support** - Full type safety and IntelliSense
-- **Account Abstraction** - ERC-4337 UserOperation building
-- **Session Keys** - Temporary key management
-- **Gas Abstraction** - Paymaster integration
-- **Multi-chain** - Support for multiple EVM chains
-- **Retry Logic** - Automatic retry with exponential backoff
-- **WebSocket Support** - Real-time operation updates
+- 🔐 **Smart Account Management**: Deploy and manage ERC-4337 smart accounts
+- 🔑 **Session Keys**: Grant time-bound, limited permissions
+- 👥 **Social Recovery**: Recover accounts with guardian approvals
+- 💰 **Spending Limits**: Set daily spending caps per token
+- ⛽ **Gasless Transactions**: Submit UserOps with paymaster support
+- 🔗 **Cross-chain Support**: Works on Ethereum, Polygon, Arbitrum, Optimism, Base
 
-## 📚 API Reference
-
-### VaultumClient
-
-The main client for interacting with Vaultum smart accounts.
-
-```typescript
-const client = new VaultumClient(config: ClientConfig);
-```
-
-#### Configuration
-
-```typescript
-interface ClientConfig {
-  apiUrl: string;           // Vaultum API URL
-  chain: Chain;             // Target blockchain
-  signer?: Signer;          // Ethers.js signer
-  paymasterUrl?: string;    // Optional paymaster
-}
-```
+## API Documentation
 
 ### Account Management
 
-#### Create Account
-
 ```typescript
-const account = await client.createAccount({
-  owner: string,
-  modules?: string[],
-  salt?: string,
-});
+// Deploy new account
+const account = await client.deployAccount(params);
+
+// Get account info
+const info = await client.getAccount(address);
 ```
 
-#### Get Account
+### UserOperations
 
 ```typescript
-const account = await client.getAccount(address: string);
+// Submit UserOp
+const opId = await client.submitUserOp(userOp);
+
+// Get status
+const status = await client.getOpStatus(opId);
+
+// Wait for completion
+const receipt = await client.waitForOp(opId);
 ```
 
-### User Operations
-
-#### Build UserOperation
+### Recovery Module
 
 ```typescript
-const userOp = await client.buildUserOperation({
-  account: string,
-  to: string,
-  value?: string,
-  data?: string,
-  nonce?: string,
-});
-```
+// Initiate recovery
+await client.initiateRecovery(account, newOwner);
 
-#### Sign UserOperation
+// Support recovery
+await client.supportRecovery(account, nonce);
 
-```typescript
-const signedOp = await client.signUserOperation(
-  userOp: UserOperation,
-  signer: Signer
-);
-```
-
-#### Submit UserOperation
-
-```typescript
-const result = await client.submitUserOperation(
-  signedOp: SignedUserOperation
-);
+// Execute recovery
+await client.executeRecovery(account, nonce);
 ```
 
 ### Session Keys
 
-#### Create Session Key
+```typescript
+// Grant session key
+await client.grantSessionKey(account, key, expiry, selectors);
+
+// Revoke session key
+await client.revokeSessionKey(account, key);
+```
+
+### Spending Limits
 
 ```typescript
-const sessionKey = await client.createSessionKey({
-  account: string,
-  permissions: Permission[],
-  expiry: number,
-});
+// Set limit
+await client.setSpendingLimit(account, token, cap);
+
+// Enable owner bypass
+await client.enableOwnerBypass(account, duration);
 ```
 
-#### Use Session Key
-
-```typescript
-const client = new VaultumClient({
-  // ... config
-  sessionKey: sessionKey.privateKey,
-});
-```
-
-### Gas Estimation
-
-```typescript
-const estimate = await client.estimateUserOperation(userOp);
-console.log('Gas limit:', estimate.callGasLimit);
-console.log('Verification gas:', estimate.verificationGasLimit);
-```
-
-## 🔄 WebSocket Events
-
-```typescript
-// Subscribe to operation updates
-client.on('operation', (update) => {
-  console.log('Operation status:', update.status);
-});
-
-// Subscribe to account events
-client.on('account', (event) => {
-  console.log('Account event:', event.type);
-});
-```
-
-## 🧪 Testing
-
-```bash
-# Run tests
-pnpm test
-
-# Run with coverage
-pnpm test:coverage
-
-# Run in watch mode
-pnpm test:watch
-```
-
-## 🔧 Advanced Usage
-
-### Custom Signer
-
-```typescript
-import { Wallet } from 'ethers';
-
-const signer = new Wallet(privateKey);
-const client = new VaultumClient({
-  apiUrl: 'https://api.vaultum.app',
-  chain: 'ethereum',
-  signer,
-});
-```
-
-### Batch Operations
-
-```typescript
-const batch = await client.batchUserOperations([
-  { to: addr1, value: amount1, data: data1 },
-  { to: addr2, value: amount2, data: data2 },
-]);
-```
-
-### Custom Modules
-
-```typescript
-await client.addModule({
-  account: accountAddress,
-  module: moduleAddress,
-  initData: '0x...',
-});
-```
-
-## 🌐 Supported Chains
+## Networks Supported
 
 - Ethereum Mainnet
+- Ethereum Sepolia (testnet)
 - Polygon
-- Arbitrum One
+- Arbitrum
 - Optimism
 - Base
-- Avalanche C-Chain
-- BNB Smart Chain
 
-## 🛡️ Security
+## Requirements
 
-- All sensitive operations require signatures
-- Session keys have limited permissions
-- Automatic nonce management
-- Replay protection built-in
+- Node.js 16+
+- TypeScript 5.0+ (for TypeScript users)
 
-## 📊 Bundle Size
+## License
 
-| Format | Size (gzipped) |
-|--------|---------------|
-| ESM | 12.5 KB |
-| CJS | 13.2 KB |
-| UMD | 14.1 KB |
+MIT
 
-## 🤝 Contributing
+## Links
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+- [GitHub Repository](https://github.com/vaultum/vaultum)
+- [Documentation](https://docs.vaultum.io)
+- [Discord Community](https://discord.gg/vaultum)
 
-## 📄 License
+## Support
 
-MIT License - see [LICENSE](LICENSE) for details.
-
-## 🔗 Links
-
-- [Documentation](https://docs.vaultum.app/sdk-js)
-- [API Reference](https://api.vaultum.app/docs)
-- [Examples](https://github.com/vaultum/sdk-js/tree/main/examples)
-- [Discord](https://discord.gg/vaultum)
-
----
-
-Built with ❤️ by the Vaultum team
+For issues and feature requests, please visit our [GitHub Issues](https://github.com/vaultum/vaultum/issues).

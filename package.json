@@ -1,16 +1,19 @@
 {
-  "name": "@vaultum/sdk-js",
-  "version": "1.0.0",
-  "description": "TypeScript SDK for Vaultum cross-chain account abstraction wallet",
+  "name": "@vaultum/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for Vaultum smart account - ERC-4337 account abstraction wallet",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "generate": "node scripts/generate-from-openapi.js",
+    "build": "pnpm generate && tsup src/index.ts --format esm,cjs --clean",
+    "build:full": "pnpm generate && tsup src/index.ts --format esm,cjs --dts --clean",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepublishOnly": "pnpm build"
   },
   "keywords": [
     "vaultum",
@@ -21,23 +24,30 @@
   ],
   "author": "Vaultum Team",
   "license": "MIT",
-  "homepage": "https://github.com/vaultum/sdk-js#readme",
+  "homepage": "https://github.com/vaultum/vaultum#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vaultum/sdk-js.git"
+    "url": "git+https://github.com/vaultum/vaultum.git",
+    "directory": "vaultum-sdk-js"
   },
   "bugs": {
-    "url": "https://github.com/vaultum/sdk-js/issues"
+    "url": "https://github.com/vaultum/vaultum/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@vitest/coverage-v8": "^1.6.1",
+    "openapi-typescript": "^6.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",
     "vitest": "^1.0.0"
   },
   "dependencies": {
-    "cross-fetch": "^4.0.0"
+    "cross-fetch": "^4.0.0",
+    "ethers": "^6.0.0",
+    "openapi-fetch": "^0.8.0"
   },
   "files": [
     "dist",

@@ -1,26 +1,35 @@
 /**
- * Vaultum SDK for JavaScript/TypeScript
- * 
- * Cross-chain account abstraction wallet SDK
+ * @vaultum/sdk-js
+ * TypeScript SDK for Vaultum smart wallet
  */
 
-// Import first for the factory function
-import { VaultumClient } from './client';
+// Main client
+export { VaultumClient } from './VaultumClient';
+export type { VaultumConfig, DeployAccountOptions, SessionKeyOptions, RecoveryOptions } from './VaultumClient';
 
-// Re-export everything
-export { VaultumClient, VaultumError } from './client';
-export * from './types';
+// Generated API client
+export { VaultumAPIClient } from './generated/client';
+export type { UserOperation, OperationState, OperationStatus, SubmitResponse } from './generated/client';
 
-// Convenience factory function
-export function createClient(baseUrl: string, options?: {
-  headers?: Record<string, string>;
-  timeout?: number;
-}) {
-  return new VaultumClient({
-    baseUrl,
-    ...options
-  });
-}
+// Legacy exports (if client.ts exists)
+// export { submitOp, getOpStatus, waitForOp } from './client';
+// export type { WaitOptions } from './client';
 
-// Re-export common types for convenience
-export type { VaultumClientOptions } from './types';
+// Constants
+export const CHAINS = {
+  ETHEREUM: 'ethereum',
+  ARBITRUM: 'arbitrum',
+  OPTIMISM: 'optimism',
+  POLYGON: 'polygon',
+  BASE: 'base',
+  SEPOLIA: 'sepolia',
+} as const;
+
+export const MODULES = {
+  SOCIAL_RECOVERY: 'socialRecovery',
+  SESSION_KEYS: 'sessionKeys',
+  SPENDING_LIMITS: 'spendingLimits',
+} as const;
+
+// Version
+export const VERSION = '0.1.0-alpha';
