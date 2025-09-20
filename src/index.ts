@@ -4,7 +4,7 @@
  */
 
 // Main client
-export { VaultumClient } from './VaultumClient';
+export { VaultumClient, VaultumError } from './VaultumClient';
 export type { VaultumConfig, DeployAccountOptions, SessionKeyOptions, RecoveryOptions } from './VaultumClient';
 
 // Generated API client

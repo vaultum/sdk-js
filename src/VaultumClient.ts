@@ -169,5 +169,16 @@ export class VaultumClient {
   }
 }
 
+export class VaultumError extends Error {
+  constructor(
+    message: string,
+    public statusCode?: number,
+    public errors?: Record<string, string[]>
+  ) {
+    super(message);
+    this.name = 'VaultumError';
+  }
+}
+
 export default VaultumClient;
 
