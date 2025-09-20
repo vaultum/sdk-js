@@ -1,6 +1,6 @@
 {
   "name": "@vaultum/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TypeScript SDK for Vaultum smart account - ERC-4337 account abstraction wallet",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
