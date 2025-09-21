@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@vaultum/abi':
+        specifier: 0.2.0
+        version: 0.2.0
       cross-fetch:
         specifier: ^4.0.0
         version: 4.1.0
@@ -528,6 +531,9 @@ packages:
 
   '@types/node@22.7.5':
     resolution: {integrity: sha512-jML7s2NAzMWc//QSJ1a3prpk78cOPchGvXJsC3C6R6PSMoooztvRVQEz89gmBTBY1SPMaqo5teB4uNHPdetShQ==}
+
+  '@vaultum/abi@0.2.0':
+    resolution: {integrity: sha512-3WL48XVzU7AnztPDqm63QVDEq8tsZ5bk/VXagSb4x6jtkFJONlsFG443mQGsA77rqQ+bF6NsmwzZq0UCNmQA8Q==}
 
   '@vitest/coverage-v8@1.6.1':
     resolution: {integrity: sha512-6YeRZwuO4oTGKxD3bijok756oktHSIm3eczVVzNe3scqzuhLwltIF3S9ZL/vwOVIpURmU6SnZhziXXAfw8/Qlw==}
@@ -1614,6 +1620,8 @@ snapshots:
   '@types/node@22.7.5':
     dependencies:
       undici-types: 6.19.8
+
+  '@vaultum/abi@0.2.0': {}
 
   '@vitest/coverage-v8@1.6.1(vitest@1.6.1(@types/node@20.19.13))':
     dependencies:

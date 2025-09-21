@@ -1,6 +1,6 @@
 {
   "name": "@vaultum/sdk",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "TypeScript SDK for Vaultum smart account - ERC-4337 account abstraction wallet",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -25,14 +25,13 @@
   ],
   "author": "Vaultum Team",
   "license": "MIT",
-  "homepage": "https://github.com/vaultum/vaultum#readme",
+  "homepage": "https://github.com/vaultum/sdk-js#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vaultum/vaultum.git",
-    "directory": "vaultum-sdk-js"
+    "url": "git+https://github.com/vaultum/sdk-js.git"
   },
   "bugs": {
-    "url": "https://github.com/vaultum/vaultum/issues"
+    "url": "https://github.com/vaultum/sdk-js/issues"
   },
   "publishConfig": {
     "access": "public"
@@ -46,7 +45,7 @@
     "vitest": "^1.0.0"
   },
   "dependencies": {
-    "@vaultum/abi": "0.2.0-alpha",
+    "@vaultum/abi": "0.2.0",
     "cross-fetch": "^4.0.0",
     "ethers": "^6.0.0",
     "openapi-fetch": "^0.8.0"
