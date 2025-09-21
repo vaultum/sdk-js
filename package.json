@@ -46,6 +46,7 @@
     "vitest": "^1.0.0"
   },
   "dependencies": {
+    "@vaultum/abi": "0.2.0-alpha",
     "cross-fetch": "^4.0.0",
     "ethers": "^6.0.0",
     "openapi-fetch": "^0.8.0"

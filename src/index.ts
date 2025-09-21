@@ -11,6 +11,17 @@ export type { VaultumConfig, DeployAccountOptions, SessionKeyOptions, RecoveryOp
 export { VaultumAPIClient } from './generated/client';
 export type { UserOperation, OperationState, OperationStatus, SubmitResponse } from './generated/client';
 
+// V2 Contract integration with canonical ABIs and addresses
+export { 
+  getVaultumContract, 
+  V2_ADDRESSES, 
+  V2_ABIS, 
+  SEPOLIA_V2,
+  isSupportedChain,
+  getSupportedChains 
+} from './contracts';
+export type { ContractName } from '@vaultum/abi';
+
 // Legacy exports (if client.ts exists)
 // export { submitOp, getOpStatus, waitForOp } from './client';
 // export type { WaitOptions } from './client';

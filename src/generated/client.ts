@@ -1,5 +1,5 @@
 // Auto-generated API client from OpenAPI spec
-// Generated at: 2025-09-20T19:28:11.267Z
+// Generated at: 2025-09-21T08:35:37.244Z
 
 import createClient from 'openapi-fetch';
 import type { paths } from './api';
