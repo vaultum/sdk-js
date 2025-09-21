@@ -1,0 +1,35 @@
+# SDK Repository Ownership
+
+# SDK surface and types
+src/**                 @vaultum/sdk-lead
+package.json           @vaultum/sdk-lead
+
+# Generated API client
+src/generated/**       @vaultum/api-lead @vaultum/sdk-lead
+
+# Build and development infrastructure
+scripts/**             @vaultum/sdk-lead
+dist/**                @vaultum/sdk-lead
+*.config.*             @vaultum/sdk-lead
+
+# Documentation
+README.md              @vaultum/sdk-lead
+docs/**                @vaultum/sdk-lead
+
+# Testing
+__tests__/**           @vaultum/sdk-lead
+*.test.*               @vaultum/sdk-lead
+jest.config.*          @vaultum/sdk-lead
+vitest.config.*        @vaultum/sdk-lead
+
+# Governance and CI
+.github/**             @vaultum/sdk-lead
+CONTRIBUTING.md        @vaultum/sdk-lead
+
+# Dependencies and lockfiles
+package-lock.json      @vaultum/sdk-lead
+pnpm-lock.yaml         @vaultum/sdk-lead
+yarn.lock              @vaultum/sdk-lead
+
+# Root configuration
+*                      @vaultum/sdk-lead
