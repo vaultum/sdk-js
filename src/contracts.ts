@@ -20,7 +20,7 @@ export function getVaultumContract(
   signer?: Signer
 ) {
   const address = getAddress(name, chainId);
-  const abi = ABIS[name];
+  const abi = ABIS[name] as any; // Cast to any to handle ABI typing
   
   if (signer) {
     return new ethers.Contract(address, abi, signer);
@@ -47,7 +47,6 @@ export const SEPOLIA_V2 = {
   SMART_ACCOUNT: getAddress('SmartAccount', 11155111),
   SOCIAL_RECOVERY: getAddress('SocialRecoveryModule', 11155111),
   SESSION_VALIDATOR: getAddress('SessionKeyValidator', 11155111),
-  SESSION_MODULE: getAddress('SessionKeyModule', 11155111),
   SPENDING_LIMITS: getAddress('SpendingLimitModule', 11155111),
 } as const;
 
